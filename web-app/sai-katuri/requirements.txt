@@ -1,0 +1,7 @@
+phidata
+openai
+python-dotenv
+packaging
+uvicorn
+groq
+gradio
