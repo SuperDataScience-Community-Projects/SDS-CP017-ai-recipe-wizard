@@ -1,0 +1,8 @@
+openai
+gradio
+langchain
+langchain-openai
+langchain-google-genai
+pydantic
+mdutils
+python-dotenv
