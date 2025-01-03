@@ -121,15 +121,27 @@ def run_app():
 
         # 1. Display title in heading font with underline
         recipe_title = recipe_details.get('title', 'Not provided')
-        st.markdown(f"### **{recipe_title}**")
-        st.markdown("<hr style='border:1px solid black;'>", unsafe_allow_html=True)
+        # Display the recipe title with a custom color and background highlight
+        st.markdown(
+            f"""
+            <div style="background-color: #FFD700; color: #000000; padding: 10px; border-radius: 5px;">
+                <h3 style="margin: 0; text-align: center;">{recipe_title}</h3>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        #st.markdown("<hr style='border:1px solid black;'>", unsafe_allow_html=True)
 
-        # 2. Display ingredients as a bullet-point list
+        # 2. Display ingredients in a table format (1 column for ingredient details)
         st.markdown("#### Ingredients:")
         ingredients = recipe_details.get("ingredients", [])
         if ingredients:
-            for ingredient in ingredients:
-                st.markdown(f"- {ingredient}")
+            # Create a DataFrame with a single column for the ingredients
+            ingredient_table = {"Ingredient Details": ingredients}
+            print(ingredient_table)
+
+            # Display the table using Streamlit
+            st.table(ingredient_table)
         else:
             st.markdown("No ingredients provided.")
 
@@ -143,12 +155,12 @@ def run_app():
             st.markdown("No instructions provided.")
 
         # Display additional ingredient suggestions
-        st.subheader("Ingredient Suggestions")
+        st.subheader("Add-On Recommendations")
         st.text("\n".join(ingredient_suggestions))
 
         # Display nutrition information
-        st.subheader("Nutrition Information")
-        st.json(nutrition_info)
+        #st.subheader("Nutrition Information")
+        #st.json(nutrition_info)
         nutrition_info = extract_numerical_values(nutrition_info)
         nutrition_info.pop('calories', None)  # Remove 'calories' if it exists
         print(nutrition_info)

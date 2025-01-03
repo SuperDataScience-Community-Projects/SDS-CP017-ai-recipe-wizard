@@ -1,4 +1,6 @@
 from __init__ import client  # Import the OpenAI client from __init__.py
+#from __init__ import init_client_openaikey
+
 
 def generate_image(image_prompt, num_images=1, image_size="1024x1024"):
     """
@@ -14,6 +16,7 @@ def generate_image(image_prompt, num_images=1, image_size="1024x1024"):
     """
     try:
         # Call the OpenAI API to generate images
+        # init_client_openaikey()
         response = client.images.generate(
             prompt=image_prompt,
             n=num_images,  # Number of images to generate

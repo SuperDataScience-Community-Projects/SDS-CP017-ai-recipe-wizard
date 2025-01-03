@@ -58,6 +58,7 @@ def generate_full_output_with_template(user_input):
         # Call GPT-4 API
         response = client.chat.completions.create(
             model="gpt-4",
+            #model= "llama3.2",
             messages=messages,
             max_tokens=1500,
             temperature=0.7
