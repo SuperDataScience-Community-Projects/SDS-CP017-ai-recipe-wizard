@@ -1,5 +1,5 @@
 def extract_section(recipe_content, section):    
-    # Split the contents to lines
+    # Split the contents to lines    
     lines = recipe_content.split("\n")
 
     section_content = []
@@ -10,7 +10,6 @@ def extract_section(recipe_content, section):
     # Loop thru lines   
     for line in lines:   
         line = line.strip() 
-        print(lines)
         if line.startswith(f"{section}:"):  
             section_start = True
             section_content.append(line.replace(f"{section}:","").strip())

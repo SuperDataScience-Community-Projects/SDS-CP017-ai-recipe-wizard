@@ -3,3 +3,5 @@
 .DS_Store
 .env
 .venv
+notebooks/mahendhran-kannan/config/secrets.py
+notebooks/mahendhran-kannan/config/mynotes.txt
