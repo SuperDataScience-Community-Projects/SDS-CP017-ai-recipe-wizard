@@ -7,26 +7,16 @@ from dotenv import load_dotenv
 from phi.utils.pprint import pprint_run_response
 from IPython.display import Image, display
 from typing import Iterator
+import os
 
-# Load environment variables
 load_dotenv()
-
-# Custom CSS for styling
-custom_css = """
-#title {
-    text-align: center;
-    color: #ff5733;  /* Example color (bright orange) */
-    font-size: 36px;
-    font-weight: bold;
-}
-"""
-
 
 # Define the agents
 Recipe_Generator_agent = Agent(
     name="Recipe Generator",
     role="Generate a recipe",
     model=Groq(id="llama-3.3-70b-versatile"),
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY"),
     instructions=[
         "Always include recipe name, ingredients, Cuisine, Time to cook, and instructions in the response. "
         "Include any modifications to the recipe to make it vegan or gluten-free or allergen-free. "
@@ -40,6 +30,7 @@ Recipe_Generator_agent = Agent(
 
 extract_ImageSummary_agent = Agent(
     model=Groq(id="llama-3.3-70b-versatile"),
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY"),
     name="Summary Extractor",
     role="Extract summary from the response",
     instructions=["Extract summary from the response to create image of the recipe."],
@@ -50,6 +41,7 @@ extract_ImageSummary_agent = Agent(
 
 image_generator_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
     tools=[Dalle()],
     description="You are an AI agent that can generate images using DALL-E.",
     instructions="When the user asks you to create an image, use the `create_image` tool to create the image.",
