@@ -5,11 +5,13 @@ from phi.tools.dalle import Dalle
 from phi.model.openai import OpenAIChat
 from dotenv import load_dotenv
 from phi.utils.pprint import pprint_run_response
+from pydantic import BaseModel, Field
 from IPython.display import Image, display
-from typing import Iterator
+from typing import Iterator, List
 import os
 
 load_dotenv()
+
 
 # Define the agents
 Recipe_Generator_agent = Agent(
