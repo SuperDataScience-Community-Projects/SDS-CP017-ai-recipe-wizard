@@ -1,12 +1,10 @@
-import matplotlib.pyplot as plt
-from io import BytesIO
-
+import streamlit as st
 import matplotlib.pyplot as plt
 from io import BytesIO
 
 def create_nutrition_pie_chart(nutrition_info):
     """
-    Create a pie chart showing how macronutrients contribute to total calories.
+    Create a pie chart showing how macronutrients contribute to total calories in grams.
 
     Args:
         nutrition_info (dict): Nutritional information with keys like 'protein',
@@ -16,28 +14,36 @@ def create_nutrition_pie_chart(nutrition_info):
         BytesIO: A buffer containing the pie chart image.
     """
     try:
-        print("Nutrition Info Inside Function:", nutrition_info)  # Debugging
+        # Debugging output using st.write
+        st.write("Nutrition Info Inside Function:", nutrition_info)
 
         # Extract numeric values
         protein = int(nutrition_info.get("protein", 0))
         carbohydrates = int(nutrition_info.get("carbohydrates", 0))
         fats = int(nutrition_info.get("fats", 0))
 
-        print(f"Parsed Values -> Protein: {protein}, Carbs: {carbohydrates}, Fats: {fats}")  # Debugging
-
-        # Calculate calorie contributions
-        protein_calories = protein * 4  # 1g protein = 4 calories
-        carb_calories = carbohydrates * 4  # 1g carb = 4 calories
-        fat_calories = fats * 9  # 1g fat = 9 calories
+        st.write(f"Parsed Values -> Protein: {protein}, Carbs: {carbohydrates}, Fats: {fats}")
 
         # Prepare data for the pie chart
         labels = ['Protein', 'Carbohydrates', 'Fats']
-        values = [protein_calories, carb_calories, fat_calories]
+        values = [protein, carbohydrates, fats]
+
+        # Custom function to display grams instead of percentages
+        def grams_autopct(pct, all_values):
+            total = sum(all_values)
+            value = int(round(pct * total / 100.0))  # Convert percentage to actual value
+            return f"{value}g"
 
         # Generate pie chart
         fig, ax = plt.subplots()
-        ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=140, colors=['#4CAF50', '#FFC107', '#2196F3'])
-        ax.set_title("Macronutrient Contribution to Total Calories")
+        ax.pie(
+            values,
+            labels=labels,
+            autopct=lambda pct: grams_autopct(pct, values),
+            startangle=140,
+            colors=['#4CAF50', '#FFC107', '#2196F3']
+        )
+        ax.set_title("Macronutrient Contribution to Total Grams")
 
         # Convert plot to image
         buf = BytesIO()
@@ -47,5 +53,5 @@ def create_nutrition_pie_chart(nutrition_info):
         return buf
 
     except Exception as e:
-        print(f"Error Parsing Nutrition Info: {nutrition_info}")  # Debugging
+        st.error(f"Error Parsing Nutrition Info: {nutrition_info}")
         raise ValueError(f"Invalid nutrition data: {e}")

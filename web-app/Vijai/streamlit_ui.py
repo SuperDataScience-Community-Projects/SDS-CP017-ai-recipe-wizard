@@ -163,7 +163,7 @@ def run_app():
         #st.json(nutrition_info)
         nutrition_info = extract_numerical_values(nutrition_info)
         nutrition_info.pop('calories', None)  # Remove 'calories' if it exists
-        print(nutrition_info)
+        print('nutrition_info',nutrition_info)
 
         # Generate and display pie chart for macronutrient contribution
         if nutrition_info:
