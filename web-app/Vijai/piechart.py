@@ -1,10 +1,10 @@
-import streamlit as st
 import matplotlib.pyplot as plt
 from io import BytesIO
+import streamlit as st
 
 def create_nutrition_pie_chart(nutrition_info):
     """
-    Create a pie chart showing how macronutrients contribute to total calories in grams.
+    Create a pie chart showing how macronutrients contribute to total grams.
 
     Args:
         nutrition_info (dict): Nutritional information with keys like 'protein',
@@ -29,8 +29,8 @@ def create_nutrition_pie_chart(nutrition_info):
         values = [protein, carbohydrates, fats]
 
         # Custom function to display grams instead of percentages
-        def grams_autopct(pct, all_values):
-            total = sum(all_values)
+        def grams_autopct(pct):
+            total = sum(values)
             value = int(round(pct * total / 100.0))  # Convert percentage to actual value
             return f"{value}g"
 
@@ -39,7 +39,7 @@ def create_nutrition_pie_chart(nutrition_info):
         ax.pie(
             values,
             labels=labels,
-            autopct=lambda pct: grams_autopct(pct, values),
+            autopct=grams_autopct,  # Use the custom function here
             startangle=140,
             colors=['#4CAF50', '#FFC107', '#2196F3']
         )

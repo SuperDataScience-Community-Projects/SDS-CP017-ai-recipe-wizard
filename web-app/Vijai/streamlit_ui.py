@@ -1,8 +1,7 @@
 import streamlit as st
 import base64
 import os
-import matplotlib.pyplot as plt
-from io import BytesIO
+
 from recipe_generator import generate_full_output_with_template
 from image_creator import generate_image
 from piechart import create_nutrition_pie_chart
@@ -40,20 +39,7 @@ def get_local_image_url(file_path):
         encoded = base64.b64encode(image_file.read()).decode()
         return f"data:image/png;base64,{encoded}"
 
-# Function to create a pie chart for nutrition info
-def create_nutrition_pie_chart(nutrition_info):
-    labels = list(nutrition_info.keys())
-    values = list(nutrition_info.values())
 
-    fig, ax = plt.subplots()
-    ax.pie(values, labels=labels, autopct='%1.1f%%', startangle=140)
-    ax.set_title("Nutritional Breakdown")
-
-    # Convert plot to image
-    buf = BytesIO()
-    plt.savefig(buf, format="png")
-    buf.seek(0)
-    return buf
 
 def run_app():
     # Set the background image
@@ -124,7 +110,7 @@ def run_app():
         # Display the recipe title with a custom color and background highlight
         st.markdown(
             f"""
-            <div style="background-color: #FFD700; color: #000000; padding: 10px; border-radius: 5px;">
+            <div style="background-color: #f0f0f0; color: #000000; padding: 10px; border-radius: 5px;">
                 <h3 style="margin: 0; text-align: center;">{recipe_title}</h3>
             </div>
             """,
@@ -169,6 +155,7 @@ def run_app():
         if nutrition_info:
             st.subheader("Macronutrient Contribution to Calories")
             try:
+                print("Calling create_nutrition_pie_chart")
                 nutrition_chart = create_nutrition_pie_chart(nutrition_info)
                 if nutrition_chart:
                     st.image(nutrition_chart, caption="Macronutrient Breakdown")
