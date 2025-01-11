@@ -105,7 +105,7 @@ Welcome to the AI Recipe Chatbot Application! This innovative tool allows you to
 
 ---
 
-## Want a ready-to-go app? we got your back use HuggingFace Spaces:
+## Quick Solution: Use HuggingFace Spaces:
 
 1. Visit the [Hugging face Spaces](https://huggingface.co/spaces). 
 2. In the search bar, type `jothi3112/Chef_Jothi_AI_Magic` and enter to find my space.
