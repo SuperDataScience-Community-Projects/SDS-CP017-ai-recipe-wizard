@@ -6,3 +6,4 @@ langchain-google-genai
 pydantic
 mdutils
 python-dotenv
+google-generativeai
