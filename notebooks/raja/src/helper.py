@@ -2,6 +2,8 @@ import json
 from mdutils.mdutils import MdUtils
 from openai import OpenAI  
 from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 def convert_to_md(dishInstructions, recipeImageURL):
     # Initialize MdUtils without a file name
@@ -56,15 +58,20 @@ def parse_json_markdown(json_string: str) -> dict:
     return parsed
 
 
-def get_chat_llm(chat_llm):
-    if chat_llm == "openai":
-        chat_model = ChatOpenAI( model="gpt-4o-mini")
-        return chat_model
-    return None
+def get_chat_llm(model_name, api_key):
 
-def get_image_llm(image_llm):
-    if image_llm == "openai":
-        image_model = OpenAI()
-        return image_model
-    return None
+    if model_name.startswith("gpt-"):
+        return ChatOpenAI(model_name=model_name, openai_api_key=api_key, streaming=True)
+    elif model_name.startswith("gemini-"):
+        return ChatGoogleGenerativeAI(model=model_name, google_api_key=api_key, streaming=True)
+    else:
+        raise ValueError(f"Unsupported model: {model_name}")
+
+def get_image_llm(model_name, api_key):
+    # if model_name.startswith("gpt-"):
+    #     image_model = OpenAI(api_key=api_key)
+    #     return image_model
+
+    image_model = OpenAI(api_key=api_key)
+    return image_model
     
