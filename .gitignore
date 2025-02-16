@@ -2,6 +2,11 @@
 .ipynb_checkpoints
 .DS_Store
 .env
+<<<<<<< HEAD
+.idea
+.gradio
+=======
 .venv
 notebooks/mahendhran-kannan/config/secrets.py
 notebooks/mahendhran-kannan/config/mynotes.txt
+>>>>>>> d676a7abeba671b2630e53e53c52ede75316b5cb
